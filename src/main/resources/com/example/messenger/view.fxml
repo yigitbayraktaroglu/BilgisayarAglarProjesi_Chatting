@@ -9,14 +9,14 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="ap_main" prefHeight="396" prefWidth="478" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.messenger.Controller">
-    <Button fx:id="button_send" layoutX="404" layoutY="338" text="Send" />
-    <TextField fx:id="tf_message" layoutX="30" layoutY="338" prefHeight="26" prefWidth="371.0" />
+    <Button fx:id="button_gonder" layoutX="392.0" layoutY="339.0" text="Gonder" />
+    <TextField fx:id="tf_mesaj" layoutX="30" layoutY="338" prefHeight="26" prefWidth="360.0" />
     <ScrollPane fx:id="sp_main" fitToWidth="true" layoutX="30" layoutY="70" prefHeight="256" prefWidth="418">
-        <VBox fx:id="vbox_messages" prefHeight="248" prefWidth="412" />
+        <VBox fx:id="vbox_mesaj" prefHeight="248" prefWidth="412" />
     </ScrollPane>
-   <Label layoutX="180.0" layoutY="14.0" prefHeight="26.0" prefWidth="118.0" text="WhatsApp" textFill="#3862cd">
+   <Label layoutX="162.0" layoutY="14.0" prefHeight="46.0" prefWidth="155.0" text="ChatApp" textFill="#128c7e">
       <font>
-         <Font size="24.0" />
+         <Font name="Tahoma Bold" size="36.0" />
       </font>
    </Label>
 </AnchorPane>

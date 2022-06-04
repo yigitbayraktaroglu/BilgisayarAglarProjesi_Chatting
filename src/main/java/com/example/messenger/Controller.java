@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -28,11 +27,11 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane ap_main;
     @FXML
-    private Button button_send;
+    private Button button_gonder;
     @FXML
-    private TextField tf_message;
+    private TextField tf_mesaj;
     @FXML
-    private VBox vbox_messages;
+    private VBox vbox_mesaj;
     @FXML
     private ScrollPane sp_main;
     private Server server;
@@ -45,48 +44,49 @@ public class Controller implements Initializable {
             e.printStackTrace();
             System.out.println("error");
         }
-        vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
+        vbox_mesaj.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 sp_main.setVvalue((Double) newValue);
             }
         });
-        server.receiveMessageFromClient(vbox_messages);
-        button_send.setOnAction(new EventHandler<ActionEvent>() {
+        // bu kisim kendi yazdgımız mesajları ekrana ekler
+        server.receiveMessageFromClient(vbox_mesaj);
+        button_gonder.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String messageToSend = tf_message.getText();
+                String messageToSend = tf_mesaj.getText();
                 if (!messageToSend.isEmpty()) {
-                    HBox hBox = new HBox();
+                    HBox hBox = new HBox();//baloncuk olustur
                     hBox.setAlignment(Pos.CENTER_RIGHT);
                     hBox.setPadding(new Insets(5, 5, 5, 10));
                     Text text = new Text(messageToSend);
                     TextFlow textFlow = new TextFlow(text);
-                    textFlow.setStyle("-fx-color: rgb(239,242,255);-fx-background-color: rgb(15,125,242);-fx-background-radius:20px");
+                    textFlow.setStyle("-fx-color: rgb(239,242,255);-fx-background-color: rgb(37,211,102);-fx-background-radius:20px");
                     textFlow.setPadding(new Insets(5, 10, 5, 10));
-                    text.setFill(Color.color(0.934, 0.945, 0.996));
-                    hBox.getChildren().add(textFlow);
-                    vbox_messages.getChildren().add(hBox);
+
+                    hBox.getChildren().add(textFlow);//baloncuga messageToSened i aktarır
+                    vbox_mesaj.getChildren().add(hBox);
                     server.sendMessageToClient(messageToSend);
-                    tf_message.clear();
+                    tf_mesaj.clear();
                 }
             }
         });
     }
-
+    // bu kisim client kısmından gelen mesajları ekrana ekler
     public static void addLabel(String messageFromClient, VBox vbox) {
-HBox hBox=new HBox();
-        hBox.setAlignment(Pos.CENTER_LEFT);
+        HBox hBox = new HBox();//mesaj baloncugunu olusturur
+        hBox.setAlignment(Pos.CENTER_LEFT);//mesaj baloncugunu sola yatırır
         hBox.setPadding(new Insets(5, 5, 5, 10));
         Text text = new Text(messageFromClient);
         TextFlow textFlow = new TextFlow(text);
         textFlow.setStyle("-fx-background-color: rgb(233,233,235);-fx-background-radius:20px");
         textFlow.setPadding(new Insets(5, 10, 5, 10));
-        hBox.getChildren().add(textFlow);
+        hBox.getChildren().add(textFlow);//baloncugun icine mesaji ekler
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-            vbox.getChildren().add(hBox);
+                vbox.getChildren().add(hBox);
             }
         });
 

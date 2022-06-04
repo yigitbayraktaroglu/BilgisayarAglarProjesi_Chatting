@@ -1,6 +1,5 @@
 package com.example.messenger;
 
-import com.example.messenger.Client;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,7 +14,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -26,11 +24,11 @@ import java.util.ResourceBundle;
 
 public class clientController implements Initializable {
     @FXML
-    private Button button_send;
+    private Button button_gonder;
     @FXML
-    private TextField tf_message;
+    private TextField tf_mesaj;
     @FXML
-    private VBox vbox_messages;
+    private VBox vbox_mesaj;
     @FXML
     private ScrollPane sp_main;
 
@@ -44,30 +42,29 @@ public class clientController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
+        vbox_mesaj.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 sp_main.setVvalue((Double) newValue);
             }
         });
-        client.receiveMessageFromServer(vbox_messages);
-        button_send.setOnAction(new EventHandler<ActionEvent>() {
+        client.receiveMessageFromServer(vbox_mesaj);
+        button_gonder.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String messageToSend = tf_message.getText();
+                String messageToSend = tf_mesaj.getText();
                 if (!messageToSend.isEmpty()) {
                     HBox hBox = new HBox();
                     hBox.setAlignment(Pos.CENTER_RIGHT);
                     hBox.setPadding(new Insets(5, 5, 5, 10));
                     Text text = new Text(messageToSend);
                     TextFlow textFlow = new TextFlow(text);
-                    textFlow.setStyle("-fx-color: rgb(239,242,255);-fx-background-color: rgb(15,125,242);-fx-background-radius:20px");
+                    textFlow.setStyle("-fx-color: rgb(239,242,255);-fx-background-color: rgb(37,211,102);-fx-background-radius:20px");
                     textFlow.setPadding(new Insets(5, 10, 5, 10));
-                    text.setFill(Color.color(0.934, 0.945, 0.996));
                     hBox.getChildren().add(textFlow);
-                    vbox_messages.getChildren().add(hBox);
+                    vbox_mesaj.getChildren().add(hBox);
                     client.sendMessageToServer(messageToSend);
-                    tf_message.clear();
+                    tf_mesaj.clear();
                 }
             }
         });
